@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dictionary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Dictionary</h1>
+    <input type="text" id="searchInput" placeholder="Enter Column Name">
+    <button onclick="search()">Search</button>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Column Name</th>
+                <th>Description</th>
+                <th>Table</th>
+                <th>Schema</th>
+                <th>Database</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const dataDict = [
+            { ColumnName: 'business_id', Description: 'The ID of the business', Table: 'business', Schema: 'public', Database: 'main' },
+            { ColumnName: 'business_name', Description: 'The name of the business', Table: 'business', Schema: 'public', Database: 'main' },
+            // Add more entries here...
+        ];
+
+        function search() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const results = dataDict.filter(entry => entry.ColumnName.toLowerCase().includes(input));
+
+            const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+            resultsTable.innerHTML = '';
+
+            results.forEach(result => {
+                const row = resultsTable.insertRow();
+                row.insertCell(0).innerText = result.ColumnName;
+                row.insertCell(1).innerText = result.Description;
+                row.insertCell(2).innerText = result.Table;
+                row.insertCell(3).innerText = result.Schema;
+                row.insertCell(4).innerText = result.Database;
+            });
+        }
+    </script>
+</body>
+</html>
